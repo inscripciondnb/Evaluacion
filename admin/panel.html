@@ -5,7 +5,7 @@
 <section class="card"><label>Filtrar materia </label><select id="filter"><option value="">Todas</option></select><button onclick="render()">Aplicar</button></section>
 <section class="card"><div class="wrap"><table><thead><tr><th>Fecha</th><th>Materia</th><th>Docente</th><th>Nivel</th><th>Duración</th><th>Útil</th><th>Docente</th><th>Curso</th><th>Total</th><th>%</th><th>Clasificación</th><th>Continuidad</th><th>Acción</th></tr></thead><tbody id="rows"></tbody></table></div></section></main>
 <script>
-const API_URL='PEGAR_AQUI_URL_EXEC';let data=[];const $=x=>document.getElementById(x);
+const API_URL='https://script.google.com/macros/s/AKfycbwtsLXAouzfwRiRzf7ZEPbAFKBNy03yw-Qeg_Kzc_wGpCrTZJGEqypwsDBcYiRY5vkt/exec';let data=[];const $=x=>document.getElementById(x);
 function classification(p){p=Number(p);return p>=90?'Excelente':p>=80?'Muy bueno':p>=70?'Bueno':p>=60?'Regular':'Insuficiente'}
 async function get(a){const u=new URL(API_URL);u.searchParams.set('accion',a);const r=await fetch(u);const j=await r.json();if(!j.ok)throw Error(j.error);return j}
 async function load(){try{const j=await get('admin_bootstrap');data=j.evaluaciones||[];$('filter').innerHTML='<option value="">Todas</option>'+(j.cursos||[]).map(x=>`<option>${x}</option>`).join('');render()}catch(e){alert('No se pudieron cargar los datos: '+e.message)}}
